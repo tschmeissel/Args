@@ -28,6 +28,17 @@ public class Args {
         char elementId = element.charAt(0);
         String elementTail = element.substring(1);
         validateSchemaElementId(elementId);
+
+        if (element.length() == 0) {
+            marshalers.put(elementId, new BooleanArgumentMarshaler());
+        } else if (elementTail.equals("*")) {
+            marshalers.put(elementId, new StringArgumentMarshaler());
+        } else if (elementTail.equals("#")) {
+            marshalers.put(elementId, new IntegerArgumentMarshaler());
+        } else if (elementTail.equals("##")) {
+            marshalers.put(elementId, new DoubleArgumentMarshaler());
+        } else
+            throw new ArgsException(INVALID_ARGUMENT_FORMAT, elementId, elementTail);
     }
 
     private void validateSchemaElementId(char elementId) throws ArgsException {

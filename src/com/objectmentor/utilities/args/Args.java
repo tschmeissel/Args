@@ -2,6 +2,8 @@ package com.objectmentor.utilities.args;
 
 import java.util.*;
 
+import static com.objectmentor.utilities.args.ArgsException.ErrorCode.*;
+
 public class Args {
     private Map<Character, ArgumentMarshaler> marshalers;
     private Set<Character> charsFound;
@@ -14,7 +16,7 @@ public class Args {
 //        parseArgumentsList(Arrays.asList(args));
     }
 
-    private void parseSchema(String schema) {
+    private void parseSchema(String schema) throws ArgsException {
         for (String element : schema.split(",")) {
             if (element.length() > 0) {
                 parseSchemaElement(element);
@@ -22,15 +24,15 @@ public class Args {
         }
     }
 
-    private void parseSchemaElement(String element) {
+    private void parseSchemaElement(String element) throws ArgsException {
         char elementId = element.charAt(0);
         String elementTail = element.substring(1);
         validateSchemaElementId(elementId);
     }
 
-    private void validateSchemaElementId(char elementId) {
+    private void validateSchemaElementId(char elementId) throws ArgsException {
         if (!Character.isLetter(elementId)) {
-            throw new ArgsException()(INVALID_ARGUMENT_NAME, elementId, null);
+            throw new ArgsException(INVALID_ARGUMENT_NAME, elementId, null);
         }
     }
 }

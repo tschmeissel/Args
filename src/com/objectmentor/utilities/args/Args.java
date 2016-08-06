@@ -23,6 +23,14 @@ public class Args {
     }
 
     private void parseSchemaElement(String element) {
-        
+        char elementId = element.charAt(0);
+        String elementTail = element.substring(1);
+        validateSchemaElementId(elementId);
+    }
+
+    private void validateSchemaElementId(char elementId) {
+        if (!Character.isLetter(elementId)) {
+            throw new ArgsException()(INVALID_ARGUMENT_NAME, elementId, null);
+        }
     }
 }

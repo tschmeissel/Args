@@ -1,0 +1,2 @@
+Reihenfolge der Parameter ist wichtig
+J:\Projekte\Args\out\production\Args>java com.objectmentor.utilities.args.ArgsMain -p "44" -d "Hello World" -l true

@@ -33,7 +33,7 @@ public class ArgsTest {
 
     @Test
     public void testInvalidArgumentFormat() {
-        String[] args = {"true", "12", "Hello World"};
+        String[] args = {"-ltrue", "12", "Hello World"};
         try {
             Args arg = new Args("l& , p#, d*", args);
         } catch (ArgsException e) {
@@ -42,16 +42,17 @@ public class ArgsTest {
     }
 
     @Test
-    public void useCase() {
-        String[] args = {"true", "12", "Hello World"};
+    public void testUseCase1() {
+        String[] args = {"-l", "true", "-p", "4711", "-d", "Hello World!"};
         Args arg = null;
         try {
-            arg = new Args("l , p#, d*", args);
+            arg = new Args("l,p#,d*", args);
         } catch (ArgsException e) {
             fail();
         }
 
         boolean logging = arg.getBoolean('l');
+        assertTrue(logging);
         int port = arg.getInt('p');
         String directory = arg.getString('d');
     }

@@ -11,6 +11,8 @@ public class Args {
 
     public Args(String schema, String args[]) throws ArgsException {
         marshalers = new HashMap<>();
+        argsFound  =  new HashSet<Character>() ;
+
         parseSchema(schema);
 
         parseArgumentStrings(Arrays.asList(args));
@@ -29,7 +31,7 @@ public class Args {
         String elementTail = element.substring(1);
         validateSchemaElementId(elementId);
 
-        if (element.length() == 0) {
+        if (elementTail.length() == 0) {
             marshalers.put(elementId, new BooleanArgumentMarshaler());
         } else if (elementTail.equals("*")) {
             marshalers.put(elementId, new StringArgumentMarshaler());
